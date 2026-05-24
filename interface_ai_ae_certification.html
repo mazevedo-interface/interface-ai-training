@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>interface.ai — AE Certification | Value Props & Objections</title>
+<style>
+:root {
+  --navy: #080E3B;
+  --navy-mid: #0D1A6E;
+  --blue: #1A35B8;
+  --blue-bright: #2563EB;
+  --yellow: #F5C128;
+  --yellow-dark: #D4A520;
+  --white: #FFFFFF;
+  --w90: rgba(255,255,255,0.9);
+  --w70: rgba(255,255,255,0.7);
+  --w40: rgba(255,255,255,0.4);
+  --w15: rgba(255,255,255,0.15);
+  --w08: rgba(255,255,255,0.08);
+  --correct: #22C55E;
+  --correct-bg: rgba(34,197,94,0.12);
+  --correct-border: rgba(34,197,94,0.35);
+  --wrong: #EF4444;
+  --wrong-bg: rgba(239,68,68,0.12);
+  --wrong-border: rgba(239,68,68,0.35);
+  --warn: #F59E0B;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;}
+
+/* ── Topbar ── */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(8,14,59,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--w15);padding:0 28px;height:56px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:9px;}
+.logo-mark{width:30px;height:30px;background:var(--blue-bright);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;}
+.logo-name{font-size:15px;font-weight:700;}
+.logo-name span{opacity:0.6;font-weight:400;}
+.topbar-badge{font-size:12px;background:var(--yellow);color:var(--navy);border-radius:20px;padding:4px 12px;font-weight:700;}
+
+/* ── Screens ── */
+.screen{display:none;min-height:calc(100vh - 56px);}
+.screen.active{display:block;}
+
+/* ── Intro screen ── */
+.intro-hero{background:radial-gradient(ellipse at 60% 30%,#1A35B8 0%,#080E3B 65%);padding:72px 24px 56px;text-align:center;position:relative;overflow:hidden;}
+.intro-hero svg{position:absolute;inset:0;pointer-events:none;opacity:0.1;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--yellow);margin-bottom:14px;}
+.intro-hero h1{font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1.08;letter-spacing:-0.02em;max-width:700px;margin:0 auto 16px;}
+.intro-hero p{font-size:16px;color:var(--w70);max-width:560px;margin:0 auto;line-height:1.6;}
+.cert-meta{display:flex;gap:0;justify-content:center;flex-wrap:wrap;margin:40px auto 0;max-width:680px;border:1px solid var(--w15);border-radius:16px;overflow:hidden;background:var(--w08);}
+.cert-meta-item{flex:1;min-width:140px;padding:20px 16px;text-align:center;border-right:1px solid var(--w15);}
+.cert-meta-item:last-child{border-right:none;}
+.cert-meta-n{font-size:28px;font-weight:900;color:var(--yellow);line-height:1;}
+.cert-meta-l{font-size:11px;color:var(--w40);margin-top:4px;text-transform:uppercase;letter-spacing:0.07em;}
+.intro-form{max-width:560px;margin:48px auto 0;padding:0 24px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group label{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--w40);}
+.form-group input{background:var(--w08);border:1px solid var(--w15);border-radius:10px;padding:12px 16px;color:var(--white);font-size:14px;outline:none;transition:border-color 0.2s;}
+.form-group input:focus{border-color:var(--blue-bright);}
+.form-group input::placeholder{color:var(--w40);}
+.btn-start{width:100%;margin-top:8px;background:var(--yellow);color:var(--navy);border:none;border-radius:12px;padding:16px;font-size:16px;font-weight:700;cursor:pointer;transition:background 0.15s,transform 0.1s;}
+.btn-start:hover{background:var(--yellow-dark);}
+.btn-start:active{transform:scale(0.99);}
+.intro-note{font-size:12px;color:var(--w40);margin-top:12px;text-align:center;}
+.rules{max-width:680px;margin:48px auto;padding:0 24px;}
+.rules h3{font-size:14px;font-weight:700;color:var(--w70);margin-bottom:16px;letter-spacing:0.05em;text-transform:uppercase;}
+.rule-list{display:flex;flex-direction:column;gap:8px;}
+.rule-item{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--w70);line-height:1.5;}
+.rule-dot{width:6px;height:6px;border-radius:50%;background:var(--yellow);margin-top:7px;flex-shrink:0;}
+
+/* ── Quiz screen ── */
+.quiz-wrap{max-width:800px;margin:0 auto;padding:40px 24px 80px;}
+.quiz-progress{background:var(--w08);border-radius:20px;height:6px;margin-bottom:32px;overflow:hidden;}
+.quiz-progress-bar{height:100%;background:var(--yellow);border-radius:20px;transition:width 0.4s ease;}
+.quiz-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.quiz-header-label{font-size:12px;color:var(--w40);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;}
+.section-divider{margin:40px 0 28px;border-top:1px solid var(--w15);padding-top:28px;}
+.section-tag{display:inline-block;background:var(--blue);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--white);margin-bottom:14px;}
+.section-title{font-size:22px;font-weight:800;margin-bottom:4px;}
+.section-sub{font-size:13px;color:var(--w70);margin-bottom:24px;}
+
+/* ── Question card ── */
+.q-card{background:var(--w08);border:1px solid var(--w15);border-radius:16px;padding:28px;margin-bottom:16px;transition:border-color 0.2s;}
+.q-card.answered-correct{border-color:var(--correct-border);background:var(--correct-bg);}
+.q-card.answered-wrong{border-color:var(--wrong-border);background:var(--wrong-bg);}
+.q-number{font-size:11px;font-weight:700;color:var(--yellow);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;}
+.q-text{font-size:16px;font-weight:600;line-height:1.55;margin-bottom:20px;color:var(--white);}
+.options{display:flex;flex-direction:column;gap:8px;}
+.option{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;border:1px solid var(--w15);border-radius:10px;cursor:pointer;transition:all 0.15s;background:var(--w08);}
+.option:hover:not(.locked){border-color:var(--blue-bright);background:rgba(37,99,235,0.1);}
+.option.selected{border-color:var(--blue-bright);background:rgba(37,99,235,0.15);}
+.option.correct{border-color:var(--correct-border);background:var(--correct-bg);cursor:default;}
+.option.wrong{border-color:var(--wrong-border);background:var(--wrong-bg);cursor:default;}
+.option.locked{cursor:default;}
+.option-letter{width:24px;height:24px;border-radius:50%;border:1px solid var(--w40);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px;transition:all 0.15s;}
+.option.selected .option-letter{background:var(--blue-bright);border-color:var(--blue-bright);}
+.option.correct .option-letter{background:var(--correct);border-color:var(--correct);color:#fff;}
+.option.wrong .option-letter{background:var(--wrong);border-color:var(--wrong);color:#fff;}
+.option-text{font-size:14px;color:var(--w90);line-height:1.45;padding-top:2px;}
+.q-feedback{margin-top:14px;padding:12px 16px;border-radius:10px;font-size:13px;line-height:1.5;display:none;}
+.q-feedback.show{display:block;}
+.q-feedback.correct-fb{background:var(--correct-bg);border:1px solid var(--correct-border);color:#86EFAC;}
+.q-feedback.wrong-fb{background:var(--wrong-bg);border:1px solid var(--wrong-border);color:#FCA5A5;}
+.q-feedback strong{font-weight:700;}
+
+/* Short answer */
+.sa-card{background:var(--w08);border:1px solid var(--w15);border-radius:16px;padding:28px;margin-bottom:16px;}
+.sa-context{background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.25);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--w70);line-height:1.55;margin-bottom:16px;}
+.sa-label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--w40);margin-bottom:8px;}
+textarea.sa-input{width:100%;background:var(--w08);border:1px solid var(--w15);border-radius:10px;padding:14px 16px;color:var(--white);font-size:14px;font-family:inherit;resize:vertical;min-height:100px;outline:none;transition:border-color 0.2s;line-height:1.6;}
+textarea.sa-input:focus{border-color:var(--blue-bright);}
+textarea.sa-input::placeholder{color:var(--w40);}
+.model-answer{display:none;margin-top:14px;background:var(--correct-bg);border:1px solid var(--correct-border);border-radius:10px;padding:14px 16px;}
+.model-answer.show{display:block;}
+.model-answer-label{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#86EFAC;margin-bottom:6px;}
+.model-answer-text{font-size:13px;color:var(--w90);line-height:1.6;}
+.self-score{display:none;margin-top:10px;gap:8px;}
+.self-score.show{display:flex;}
+.self-score-label{font-size:12px;color:var(--w70);align-self:center;flex-shrink:0;}
+.score-btn{border:1px solid var(--w15);background:var(--w08);color:var(--white);border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer;transition:all 0.15s;}
+.score-btn:hover{background:var(--w15);}
+.score-btn.selected-full{background:var(--correct);border-color:var(--correct);color:#fff;}
+.score-btn.selected-partial{background:var(--warn);border-color:var(--warn);color:#fff;}
+.score-btn.selected-none{background:var(--wrong);border-color:var(--wrong);color:#fff;}
+
+/* Submit section */
+.submit-section{text-align:center;padding:40px 0 20px;}
+.btn-submit{background:var(--yellow);color:var(--navy);border:none;border-radius:12px;padding:16px 48px;font-size:16px;font-weight:700;cursor:pointer;transition:background 0.15s;}
+.btn-submit:hover{background:var(--yellow-dark);}
+.btn-submit:disabled{opacity:0.4;cursor:not-allowed;}
+
+/* ── Results screen ── */
+.results-wrap{max-width:680px;margin:0 auto;padding:48px 24px 80px;text-align:center;}
+.result-icon{font-size:64px;margin-bottom:16px;}
+.result-title{font-size:clamp(32px,5vw,48px);font-weight:900;letter-spacing:-0.02em;margin-bottom:8px;}
+.result-sub{font-size:17px;color:var(--w70);margin-bottom:32px;}
+.score-ring-wrap{display:flex;justify-content:center;margin-bottom:36px;}
+.score-ring{position:relative;width:160px;height:160px;}
+.score-ring svg{transform:rotate(-90deg);}
+.score-ring-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.score-pct{font-size:38px;font-weight:900;color:var(--yellow);line-height:1;}
+.score-label{font-size:11px;color:var(--w40);text-transform:uppercase;letter-spacing:0.08em;margin-top:3px;}
+.breakdown{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:36px;}
+.bd-card{background:var(--w08);border:1px solid var(--w15);border-radius:14px;padding:18px;}
+.bd-n{font-size:28px;font-weight:900;line-height:1;}
+.bd-l{font-size:12px;color:var(--w40);margin-top:4px;text-transform:uppercase;letter-spacing:0.07em;}
+.pass-bar{background:var(--correct-bg);border:1px solid var(--correct-border);border-radius:12px;padding:16px 20px;margin-bottom:28px;font-size:14px;color:#86EFAC;line-height:1.5;}
+.fail-bar{background:var(--wrong-bg);border:1px solid var(--wrong-border);border-radius:12px;padding:16px 20px;margin-bottom:28px;font-size:14px;color:#FCA5A5;line-height:1.5;}
+
+/* Certificate */
+.certificate{background:linear-gradient(135deg,#0D1A6E 0%,#1A35B8 50%,#0D1A6E 100%);border:2px solid var(--yellow);border-radius:20px;padding:40px 36px;margin:36px 0;text-align:center;position:relative;overflow:hidden;}
+.certificate::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(245,193,40,0.08);}
+.certificate::after{content:'';position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;border-radius:50%;background:rgba(37,99,235,0.12);}
+.cert-logo{font-size:13px;font-weight:700;color:var(--w70);margin-bottom:20px;letter-spacing:0.08em;text-transform:uppercase;}
+.cert-title-top{font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--yellow);margin-bottom:8px;}
+.cert-main{font-size:clamp(22px,3.5vw,32px);font-weight:900;line-height:1.2;margin-bottom:8px;}
+.cert-name{font-size:clamp(26px,4vw,38px);font-weight:900;color:var(--yellow);line-height:1.1;margin:14px 0;}
+.cert-course{font-size:16px;color:var(--w70);margin-bottom:20px;line-height:1.4;}
+.cert-date{font-size:12px;color:var(--w40);margin-top:16px;}
+.cert-score-badge{display:inline-block;background:rgba(245,193,40,0.15);border:1px solid var(--yellow);border-radius:20px;padding:6px 18px;font-size:13px;font-weight:700;color:var(--yellow);margin-top:12px;}
+
+.btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px;}
+.btn-secondary{background:var(--w08);border:1px solid var(--w15);color:var(--white);border-radius:10px;padding:12px 24px;font-size:14px;font-weight:600;cursor:pointer;transition:background 0.15s;}
+.btn-secondary:hover{background:var(--w15);}
+.btn-primary{background:var(--yellow);color:var(--navy);border:none;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;transition:background 0.15s;}
+.btn-primary:hover{background:var(--yellow-dark);}
+
+/* Missed questions review */
+.missed-section{text-align:left;margin-top:48px;}
+.missed-title{font-size:18px;font-weight:700;margin-bottom:20px;color:var(--w90);}
+.missed-item{background:var(--w08);border:1px solid var(--wrong-border);border-radius:12px;padding:20px;margin-bottom:12px;}
+.missed-q{font-size:14px;font-weight:600;margin-bottom:10px;line-height:1.5;}
+.missed-your{font-size:13px;color:#FCA5A5;margin-bottom:6px;}
+.missed-correct{font-size:13px;color:#86EFAC;}
+.missed-explain{font-size:12px;color:var(--w70);margin-top:8px;line-height:1.55;border-top:1px solid var(--w15);padding-top:8px;}
+</style>
+</head>
+<body>
+
+<!-- ── TOP BAR ── -->
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-mark" style="color:#fff;">i.</div>
+    <div class="logo-name">interface<span>.ai</span></div>
+  </div>
+  <div class="topbar-badge">AE Certification</div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SCREEN 1: INTRO
+═════════════════════════════════════════ -->
+<div class="screen active" id="screen-intro">
+  <div class="intro-hero">
+    <svg viewBox="0 0 1200 500" preserveAspectRatio="none">
+      <path d="M0,250 C200,150 400,350 600,250 C800,150 1000,320 1200,230 L1200,500 L0,500Z" fill="#2563EB"/>
+      <circle cx="950" cy="120" r="220" fill="#2563EB"/>
+    </svg>
+    <div class="eyebrow">Value Props & Objections · May 2026</div>
+    <h1>AE Certification<br><span style="color:var(--yellow)">Written Knowledge Test</span></h1>
+    <p>Demonstrates mastery of interface.ai value propositions, objection handling, and MEDDPICCC discovery fundamentals.</p>
+    <div class="cert-meta">
+      <div class="cert-meta-item"><div class="cert-meta-n">23</div><div class="cert-meta-l">Questions</div></div>
+      <div class="cert-meta-item"><div class="cert-meta-n">30</div><div class="cert-meta-l">Minutes</div></div>
+      <div class="cert-meta-item"><div class="cert-meta-n">80%</div><div class="cert-meta-l">Pass Mark</div></div>
+      <div class="cert-meta-item"><div class="cert-meta-n">3</div><div class="cert-meta-l">Sections</div></div>
+    </div>
+  </div>
+
+  <div class="intro-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" id="ae-name" placeholder="e.g. Jordan Smith" />
+      </div>
+      <div class="form-group">
+        <label>Territory</label>
+        <input type="text" id="ae-territory" placeholder="e.g. Southeast" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Manager</label>
+        <input type="text" id="ae-manager" placeholder="e.g. Bill Corbett" />
+      </div>
+      <div class="form-group">
+        <label>Date</label>
+        <input type="date" id="ae-date" />
+      </div>
+    </div>
+    <button class="btn-start" onclick="startQuiz()">Begin Certification →</button>
+    <div class="intro-note">Closed-book — no playbook or reference materials. Results are for your manager's review.</div>
+  </div>
+
+  <div class="rules">
+    <h3>Before You Begin</h3>
+    <div class="rule-list">
+      <div class="rule-item"><div class="rule-dot"></div><div>20 multiple choice questions — auto-scored with instant feedback</div></div>
+      <div class="rule-item"><div class="rule-dot"></div><div>3 short-answer scenarios — model answers revealed for self-scoring</div></div>
+      <div class="rule-item"><div class="rule-dot"></div><div>Pass mark: 80% (16/20 on multiple choice). Short answers are self-evaluated.</div></div>
+      <div class="rule-item"><div class="rule-dot"></div><div>Complete all questions before submitting — you cannot go back once submitted</div></div>
+      <div class="rule-item"><div class="rule-dot"></div><div>Re-attempt available after 2 weeks if you do not pass</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SCREEN 2: QUIZ
+═════════════════════════════════════════ -->
+<div class="screen" id="screen-quiz">
+  <div class="quiz-wrap">
+    <div class="quiz-header">
+      <div class="quiz-header-label" id="q-progress-label">Question 1 of 20</div>
+      <div class="quiz-header-label" id="q-score-live">Score: 0 / 0</div>
+    </div>
+    <div class="quiz-progress"><div class="quiz-progress-bar" id="q-bar" style="width:5%"></div></div>
+
+    <!-- ── Section A ── -->
+    <div class="section-divider" style="border-top:none;margin-top:0;padding-top:0;">
+      <div class="section-tag">Section A</div>
+      <div class="section-title">MEDDPICCC & Discovery Foundations</div>
+      <div class="section-sub">Questions 1–7 · Based on the MEDDPICCC Field Guide and Discovery Playbook</div>
+    </div>
+
+    <div class="q-card" id="q1">
+      <div class="q-number">Question 1 of 20</div>
+      <div class="q-text">What does the <strong>'M'</strong> in MEDDPICCC stand for, and what is its primary function in a discovery call?</div>
+      <div class="options">
+        <div class="option" onclick="answer(1,'A')"><div class="option-letter">A</div><div class="option-text">Marketing — define the target audience for the prospect</div></div>
+        <div class="option" onclick="answer(1,'B')"><div class="option-letter">B</div><div class="option-text">Metrics — quantify the outcomes the prospect needs to achieve and the numbers they track today</div></div>
+        <div class="option" onclick="answer(1,'C')"><div class="option-letter">C</div><div class="option-text">Management — identify the org chart above your Champion</div></div>
+        <div class="option" onclick="answer(1,'D')"><div class="option-letter">D</div><div class="option-text">Milestone — set the next call date and confirm the decision timeline</div></div>
+      </div>
+      <div class="q-feedback" id="fb1"></div>
+    </div>
+
+    <div class="q-card" id="q2">
+      <div class="q-number">Question 2 of 20</div>
+      <div class="q-text">The Economic Buyer (EB) at a credit union is almost always:</div>
+      <div class="options">
+        <div class="option" onclick="answer(2,'A')"><div class="option-letter">A</div><div class="option-text">The VP of Contact Center or VP of Operations</div></div>
+        <div class="option" onclick="answer(2,'B')"><div class="option-letter">B</div><div class="option-text">The IT Director who runs the tech stack evaluation</div></div>
+        <div class="option" onclick="answer(2,'C')"><div class="option-letter">C</div><div class="option-text">A C-suite executive — typically CEO, COO, or CXO</div></div>
+        <div class="option" onclick="answer(2,'D')"><div class="option-letter">D</div><div class="option-text">The Procurement Officer who signs contracts</div></div>
+      </div>
+      <div class="q-feedback" id="fb2"></div>
+    </div>
+
+    <div class="q-card" id="q3">
+      <div class="q-number">Question 3 of 20</div>
+      <div class="q-text">During discovery, you learn the prospect is evaluating vendors based only on technical specs. What should you do?</div>
+      <div class="options">
+        <div class="option" onclick="answer(3,'A')"><div class="option-letter">A</div><div class="option-text">Focus your pitch entirely on technical capabilities to match their criteria</div></div>
+        <div class="option" onclick="answer(3,'B')"><div class="option-letter">B</div><div class="option-text">Proactively introduce business criteria your customers value — shape the evaluation criteria early</div></div>
+        <div class="option" onclick="answer(3,'C')"><div class="option-letter">C</div><div class="option-text">Wait until the proposal stage to introduce your differentiators</div></div>
+        <div class="option" onclick="answer(3,'D')"><div class="option-letter">D</div><div class="option-text">Escalate to your manager immediately — this is a red flag</div></div>
+      </div>
+      <div class="q-feedback" id="fb3"></div>
+    </div>
+
+    <div class="q-card" id="q4">
+      <div class="q-number">Question 4 of 20</div>
+      <div class="q-text">Which of the following is a <strong>RED FLAG</strong> for the 'Champion' pillar in MEDDPICCC?</div>
+      <div class="options">
+        <div class="option" onclick="answer(4,'A')"><div class="option-letter">A</div><div class="option-text">Champion has already briefed the EB and they are supportive</div></div>
+        <div class="option" onclick="answer(4,'B')"><div class="option-letter">B</div><div class="option-text">Champion says 'I'll handle getting buy-in' and deflects a joint meeting with the Economic Buyer</div></div>
+        <div class="option" onclick="answer(4,'C')"><div class="option-letter">C</div><div class="option-text">The EB has attended a call or a demo, even briefly</div></div>
+        <div class="option" onclick="answer(4,'D')"><div class="option-letter">D</div><div class="option-text">There is a specific board or exec meeting date where the deal will be decided</div></div>
+      </div>
+      <div class="q-feedback" id="fb4"></div>
+    </div>
+
+    <div class="q-card" id="q5">
+      <div class="q-number">Question 5 of 20</div>
+      <div class="q-text">The Pain Excavation Framework has 5 steps. What is the correct order?</div>
+      <div class="options">
+        <div class="option" onclick="answer(5,'A')"><div class="option-letter">A</div><div class="option-text">Quantify → Surface → Connect to business → Personalise → Create urgency</div></div>
+        <div class="option" onclick="answer(5,'B')"><div class="option-letter">B</div><div class="option-text">Surface the problem → Quantify the impact → Connect to the business → Personalise for the room → Create urgency</div></div>
+        <div class="option" onclick="answer(5,'C')"><div class="option-letter">C</div><div class="option-text">Surface → Pitch solution → Create urgency → Personalise → Quantify</div></div>
+        <div class="option" onclick="answer(5,'D')"><div class="option-letter">D</div><div class="option-text">Identify pain → Demo → Surface → Quantify → Close</div></div>
+      </div>
+      <div class="q-feedback" id="fb5"></div>
+    </div>
+
+    <div class="q-card" id="q6">
+      <div class="q-number">Question 6 of 20</div>
+      <div class="q-text">You're 30 minutes into a discovery call and have not yet surfaced the Decision Process. What is the right move?</div>
+      <div class="options">
+        <div class="option" onclick="answer(6,'A')"><div class="option-letter">A</div><div class="option-text">Wait — it will come up naturally in a follow-up call</div></div>
+        <div class="option" onclick="answer(6,'B')"><div class="option-letter">B</div><div class="option-text">Directly ask: "Walk me through how a decision like this typically gets made — and is there a hard deadline driving that?"</div></div>
+        <div class="option" onclick="answer(6,'C')"><div class="option-letter">C</div><div class="option-text">Send a follow-up email after the call asking for the procurement timeline</div></div>
+        <div class="option" onclick="answer(6,'D')"><div class="option-letter">D</div><div class="option-text">Skip to the interface.ai overview so you can close with a specific next step</div></div>
+      </div>
+      <div class="q-feedback" id="fb6"></div>
+    </div>
+
+    <div class="q-card" id="q7">
+      <div class="q-number">Question 7 of 20</div>
+      <div class="q-text">A Champion says: "I'll handle getting buy-in from leadership — no need to involve them yet." How do you respond?</div>
+      <div class="options">
+        <div class="option" onclick="answer(7,'A')"><div class="option-letter">A</div><div class="option-text">Accept it — the Champion knows their organisation better than you do</div></div>
+        <div class="option" onclick="answer(7,'B')"><div class="option-letter">B</div><div class="option-text">Push back diplomatically: "Is there a version of this where you and I could spend 20 minutes with [CEO's name] to make sure we're aligned on the value?"</div></div>
+        <div class="option" onclick="answer(7,'C')"><div class="option-letter">C</div><div class="option-text">Immediately escalate to your VP to contact the CEO directly</div></div>
+        <div class="option" onclick="answer(7,'D')"><div class="option-letter">D</div><div class="option-text">Advance to demo stage — the Champion's support is sufficient</div></div>
+      </div>
+      <div class="q-feedback" id="fb7"></div>
+    </div>
+
+    <!-- ── Section B ── -->
+    <div class="section-divider">
+      <div class="section-tag">Section B</div>
+      <div class="section-title">Products, Value Props & Metrics</div>
+      <div class="section-sub">Questions 8–14 · Core platform differentiation and proof points</div>
+    </div>
+
+    <div class="q-card" id="q8">
+      <div class="q-number">Question 8 of 20</div>
+      <div class="q-text">interface.ai's AI-native call containment rate compared to legacy CCaaS platforms (Glia, Vonage) is:</div>
+      <div class="options">
+        <div class="option" onclick="answer(8,'A')"><div class="option-letter">A</div><div class="option-text">Roughly equivalent — both platforms target 40–50% containment</div></div>
+        <div class="option" onclick="answer(8,'B')"><div class="option-letter">B</div><div class="option-text">60–80% (interface.ai) vs. 20–25% (legacy CCaaS with AI bolt-on)</div></div>
+        <div class="option" onclick="answer(8,'C')"><div class="option-letter">C</div><div class="option-text">90%+ (interface.ai) vs. 50–60% (legacy CCaaS)</div></div>
+        <div class="option" onclick="answer(8,'D')"><div class="option-letter">D</div><div class="option-text">50–60% (interface.ai) vs. 30–40% (legacy CCaaS)</div></div>
+      </div>
+      <div class="q-feedback" id="fb8"></div>
+    </div>
+
+    <div class="q-card" id="q9">
+      <div class="q-number">Question 9 of 20</div>
+      <div class="q-text">A prospect's VP of Contact Center says hold times are 2–3 minutes. What is the best <strong>next question</strong>?</div>
+      <div class="options">
+        <div class="option" onclick="answer(9,'A')"><div class="option-letter">A</div><div class="option-text">"Would you like to see our Voice AI demo?"</div></div>
+        <div class="option" onclick="answer(9,'B')"><div class="option-letter">B</div><div class="option-text">"What is your target? And if this isn't solved in the next 12 months, what happens to your FTE model and member satisfaction scores?"</div></div>
+        <div class="option" onclick="answer(9,'C')"><div class="option-letter">C</div><div class="option-text">"How does that compare to your competitors?"</div></div>
+        <div class="option" onclick="answer(9,'D')"><div class="option-letter">D</div><div class="option-text">"Have you considered hiring additional agents?"</div></div>
+      </div>
+      <div class="q-feedback" id="fb9"></div>
+    </div>
+
+    <div class="q-card" id="q10">
+      <div class="q-number">Question 10 of 20</div>
+      <div class="q-text">Agentic Voice AI targets what inbound call automation rate from Day 1?</div>
+      <div class="options">
+        <div class="option" onclick="answer(10,'A')"><div class="option-letter">A</div><div class="option-text">20–30% of calls resolved without a human</div></div>
+        <div class="option" onclick="answer(10,'B')"><div class="option-letter">B</div><div class="option-text">45–60%+ of calls fully resolved without a human</div></div>
+        <div class="option" onclick="answer(10,'C')"><div class="option-letter">C</div><div class="option-text">10–15% initially, ramping over 12 months</div></div>
+        <div class="option" onclick="answer(10,'D')"><div class="option-letter">D</div><div class="option-text">80–100% after full implementation</div></div>
+      </div>
+      <div class="q-feedback" id="fb10"></div>
+    </div>
+
+    <div class="q-card" id="q11">
+      <div class="q-number">Question 11 of 20</div>
+      <div class="q-text">A prospect has 60%+ loan application abandonment on their website. Which product is the <strong>primary entry point</strong>?</div>
+      <div class="options">
+        <div class="option" onclick="answer(11,'A')"><div class="option-letter">A</div><div class="option-text">Agentic Voice AI — inbound calls drive most loan applications</div></div>
+        <div class="option" onclick="answer(11,'B')"><div class="option-letter">B</div><div class="option-text">Agentic Chat AI — AI Search + AI Transactions + AI Conversion on the website</div></div>
+        <div class="option" onclick="answer(11,'C')"><div class="option-letter">C</div><div class="option-text">Agentic Employee AI — agents are manually recovering abandoned applications</div></div>
+        <div class="option" onclick="answer(11,'D')"><div class="option-letter">D</div><div class="option-text">Nexus CCaaS — replace the full contact center platform first</div></div>
+      </div>
+      <div class="q-feedback" id="fb11"></div>
+    </div>
+
+    <div class="q-card" id="q12">
+      <div class="q-number">Question 12 of 20</div>
+      <div class="q-text">What delinquency benchmark does Agentic Smart Collections AI target?</div>
+      <div class="options">
+        <div class="option" onclick="answer(12,'A')"><div class="option-letter">A</div><div class="option-text">Below 200 bps (2%) industry average</div></div>
+        <div class="option" onclick="answer(12,'B')"><div class="option-letter">B</div><div class="option-text">At or below the 95 bps industry benchmark — for a $1B CU, that's $9.5M in recoveries</div></div>
+        <div class="option" onclick="answer(12,'C')"><div class="option-letter">C</div><div class="option-text">Zero delinquency through full AI automation</div></div>
+        <div class="option" onclick="answer(12,'D')"><div class="option-letter">D</div><div class="option-text">Reduce delinquency by 50% from the current rate</div></div>
+      </div>
+      <div class="q-feedback" id="fb12"></div>
+    </div>
+
+    <div class="q-card" id="q13">
+      <div class="q-number">Question 13 of 20</div>
+      <div class="q-text">Smart Collections is MOST differentiated from a standard collections IVR because:</div>
+      <div class="options">
+        <div class="option" onclick="answer(13,'A')"><div class="option-letter">A</div><div class="option-text">It handles inbound collection calls without agent involvement</div></div>
+        <div class="option" onclick="answer(13,'B')"><div class="option-letter">B</div><div class="option-text">It is proactive — reaches delinquent members outbound before they become severely past-due, with promise-to-pay workflow automation</div></div>
+        <div class="option" onclick="answer(13,'C')"><div class="option-letter">C</div><div class="option-text">It integrates with more core banking systems than any competitor</div></div>
+        <div class="option" onclick="answer(13,'D')"><div class="option-letter">D</div><div class="option-text">It costs less per interaction than agent-handled collections</div></div>
+      </div>
+      <div class="q-feedback" id="fb13"></div>
+    </div>
+
+    <div class="q-card" id="q14">
+      <div class="q-number">Question 14 of 20</div>
+      <div class="q-text">The Crawl-Walk-Run phased deployment model is used primarily to:</div>
+      <div class="options">
+        <div class="option" onclick="answer(14,'A')"><div class="option-letter">A</div><div class="option-text">Delay full implementation until the prospect sees ROI in a limited pilot</div></div>
+        <div class="option" onclick="answer(14,'B')"><div class="option-letter">B</div><div class="option-text">De-risk the prospect's decision process, reduce activation energy, and provide quick wins that prove the model early</div></div>
+        <div class="option" onclick="answer(14,'C')"><div class="option-letter">C</div><div class="option-text">Allow interface.ai to manage resource allocation across implementations</div></div>
+        <div class="option" onclick="answer(14,'D')"><div class="option-letter">D</div><div class="option-text">Protect the prospect from regulatory risk during AI adoption</div></div>
+      </div>
+      <div class="q-feedback" id="fb14"></div>
+    </div>
+
+    <!-- ── Section C ── -->
+    <div class="section-divider">
+      <div class="section-tag">Section C</div>
+      <div class="section-title">Objection Handling</div>
+      <div class="section-sub">Questions 15–20 · Synthesized from Solarity CU, Liberty FCU, BluPeak CU, Keesler FCU, Neighborhood CU</div>
+    </div>
+
+    <div class="q-card" id="q15">
+      <div class="q-number">Question 15 of 20</div>
+      <div class="q-text">A prospect says: "We haven't heard of you." What is the BEST first response element?</div>
+      <div class="options">
+        <div class="option" onclick="answer(15,'A')"><div class="option-letter">A</div><div class="option-text">Apologize and offer to send a company overview before continuing</div></div>
+        <div class="option" onclick="answer(15,'B')"><div class="option-letter">B</div><div class="option-text">Acknowledge it's by design — 12 years FI-exclusive — then immediately name-drop 2–3 clients in their asset tier or on their core</div></div>
+        <div class="option" onclick="answer(15,'C')"><div class="option-letter">C</div><div class="option-text">Pivot to a product demo so they can see the platform rather than hearing about brand</div></div>
+        <div class="option" onclick="answer(15,'D')"><div class="option-letter">D</div><div class="option-text">Lead with the Jack Henry VIP partnership and 70+ FIs statistic only</div></div>
+      </div>
+      <div class="q-feedback" id="fb15"></div>
+    </div>
+
+    <div class="q-card" id="q16">
+      <div class="q-number">Question 16 of 20</div>
+      <div class="q-text">A prospect says: "We already use Glia." The BEST reframe is:</div>
+      <div class="options">
+        <div class="option" onclick="answer(16,'A')"><div class="option-letter">A</div><div class="option-text">Explain that Glia is an inferior product and will be discontinued in most markets</div></div>
+        <div class="option" onclick="answer(16,'B')"><div class="option-letter">B</div><div class="option-text">Acknowledge Glia's strengths, then reframe on architecture: they add AI on top of existing infrastructure, we are the infrastructure — that's why containment rates are 3× higher</div></div>
+        <div class="option" onclick="answer(16,'C')"><div class="option-letter">C</div><div class="option-text">Immediately ask what their budget is for replacing Glia</div></div>
+        <div class="option" onclick="answer(16,'D')"><div class="option-letter">D</div><div class="option-text">Propose a side-by-side pilot between Glia and interface.ai</div></div>
+      </div>
+      <div class="q-feedback" id="fb16"></div>
+    </div>
+
+    <div class="q-card" id="q17">
+      <div class="q-number">Question 17 of 20</div>
+      <div class="q-text">A VP Contact Center says: "Our staff is worried AI will replace their jobs." The CORRECT response includes:</div>
+      <div class="options">
+        <div class="option" onclick="answer(17,'A')"><div class="option-letter">A</div><div class="option-text">Confirm that headcount will likely decrease but that remaining staff will be higher-paid</div></div>
+        <div class="option" onclick="answer(17,'B')"><div class="option-letter">B</div><div class="option-text">State clearly: "We have never deployed at a CU where headcount went down because of AI." Then explain the mix change and invite the team lead to the next call.</div></div>
+        <div class="option" onclick="answer(17,'C')"><div class="option-letter">C</div><div class="option-text">Avoid the topic entirely and redirect to ROI metrics</div></div>
+        <div class="option" onclick="answer(17,'D')"><div class="option-letter">D</div><div class="option-text">Agree it's a valid concern and suggest a 6-month pilot before commitment</div></div>
+      </div>
+      <div class="q-feedback" id="fb17"></div>
+    </div>
+
+    <div class="q-card" id="q18">
+      <div class="q-number">Question 18 of 20</div>
+      <div class="q-text">A prospect says: "We're not ready — we need to finish our core conversion first." The BEST response is:</div>
+      <div class="options">
+        <div class="option" onclick="answer(18,'A')"><div class="option-letter">A</div><div class="option-text">Agree and schedule a follow-up for 12 months from now</div></div>
+        <div class="option" onclick="answer(18,'B')"><div class="option-letter">B</div><div class="option-text">Flip the timing: "Core conversions take 12–24 months. If we scope now, you deploy on day one post-conversion — not 12 months after." Position planning as the competitive advantage.</div></div>
+        <div class="option" onclick="answer(18,'C')"><div class="option-letter">C</div><div class="option-text">Offer to put the deal on hold and re-engage when the conversion is complete</div></div>
+        <div class="option" onclick="answer(18,'D')"><div class="option-letter">D</div><div class="option-text">Suggest launching a standalone collections AI pilot that requires no core integration</div></div>
+      </div>
+      <div class="q-feedback" id="fb18"></div>
+    </div>
+
+    <div class="q-card" id="q19">
+      <div class="q-number">Question 19 of 20</div>
+      <div class="q-text">When handling the PII / hallucination objection, which closing line is most effective and should be used every time?</div>
+      <div class="options">
+        <div class="option" onclick="answer(19,'A')"><div class="option-letter">A</div><div class="option-text">"Our platform is SOC 2 certified, which means all data handling meets the highest standards."</div></div>
+        <div class="option" onclick="answer(19,'B')"><div class="option-letter">B</div><div class="option-text">"We have never had a data breach in 12 years of operation."</div></div>
+        <div class="option" onclick="answer(19,'C')"><div class="option-letter">C</div><div class="option-text">"The AI cannot freestyle a fraud refund — transactions run in deterministic workflows, not open-ended chat."</div></div>
+        <div class="option" onclick="answer(19,'D')"><div class="option-letter">D</div><div class="option-text">"You can review our FFIEC compliance documentation before signing."</div></div>
+      </div>
+      <div class="q-feedback" id="fb19"></div>
+    </div>
+
+    <div class="q-card" id="q20">
+      <div class="q-number">Question 20 of 20</div>
+      <div class="q-text">An IT Director says: "We're on Corelation Keystone. I don't think you support our core." The CORRECT response is:</div>
+      <div class="options">
+        <div class="option" onclick="answer(20,'A')"><div class="option-letter">A</div><div class="option-text">"We may be able to build a custom integration — let's discuss timeline and cost."</div></div>
+        <div class="option" onclick="answer(20,'B')"><div class="option-letter">B</div><div class="option-text">"You're right — we're still evaluating Corelation support in our roadmap."</div></div>
+        <div class="option" onclick="answer(20,'C')"><div class="option-letter">C</div><div class="option-text">"Corelation Keystone is one of our supported integrations. Let me connect you with our implementation team to confirm your specific version."</div></div>
+        <div class="option" onclick="answer(20,'D')"><div class="option-letter">D</div><div class="option-text">"Integration complexity is outside the scope of today's conversation."</div></div>
+      </div>
+      <div class="q-feedback" id="fb20"></div>
+    </div>
+
+    <!-- ── Section D: Short Answer ── -->
+    <div class="section-divider">
+      <div class="section-tag" style="background:#1A35B8;">Section D</div>
+      <div class="section-title">Short Answer Scenarios</div>
+      <div class="section-sub">Questions 21–23 · Write your response, then reveal the model answer and score yourself</div>
+    </div>
+
+    <div class="sa-card" id="q21">
+      <div class="q-number">Question 21 — Short Answer</div>
+      <div class="q-text" style="font-size:15px;margin-bottom:14px;">A VP of Contact Center says: <em>"We have 3–4 agents dedicated full-time to finding information for agents on calls."</em> Name the product this maps to, two key discovery questions you should ask next, and the relevant success metric interface.ai would target.</div>
+      <div class="sa-label">Your Response</div>
+      <textarea class="sa-input" id="sa21" placeholder="Write your answer here — be specific, use product names and metrics..."></textarea>
+      <button class="score-btn" onclick="revealModel(21)" style="margin-top:10px;background:var(--blue);border-color:var(--blue);color:#fff;padding:8px 18px;font-size:13px;">Reveal Model Answer</button>
+      <div class="model-answer" id="ma21">
+        <div class="model-answer-label">Model Answer</div>
+        <div class="model-answer-text"><strong>Product:</strong> Agentic Employee AI (real-time agent assist). <br><br><strong>Discovery questions:</strong> (1) "What is your agents' current average handle time, and how much of that do you estimate is search time?" (2) "What happens when an agent can't find the answer — how often does that lead to a call back or escalation?" <br><br><strong>Target metric:</strong> 30–90 second reduction in average handle time per call through real-time knowledge retrieval — agents stop toggling between 5 systems and get suggested responses surfaced instantly.</div>
+      </div>
+      <div class="self-score show" id="ss21" style="display:none">
+        <div class="self-score-label">Self-score:</div>
+        <button class="score-btn" onclick="selfScore(21,'full')">Full credit — got product, 2 questions, and metric</button>
+        <button class="score-btn" onclick="selfScore(21,'partial')">Partial — got 2 of 3 elements</button>
+        <button class="score-btn" onclick="selfScore(21,'none')">Missed it — review needed</button>
+      </div>
+    </div>
+
+    <div class="sa-card" id="q22">
+      <div class="q-number">Question 22 — Short Answer</div>
+      <div class="q-text" style="font-size:15px;margin-bottom:14px;">You've just finished a demo. The champion says <em>"This looks great — I'll share the recording with leadership."</em> What do you say and do in the next 5 minutes of the call? (3–4 sentences)</div>
+      <div class="sa-label">Your Response</div>
+      <textarea class="sa-input" id="sa22" placeholder="Write your answer here..."></textarea>
+      <button class="score-btn" onclick="revealModel(22)" style="margin-top:10px;background:var(--blue);border-color:var(--blue);color:#fff;padding:8px 18px;font-size:13px;">Reveal Model Answer</button>
+      <div class="model-answer" id="ma22">
+        <div class="model-answer-label">Model Answer</div>
+        <div class="model-answer-text">Ask 2+ debrief questions to surface new intel: <em>"What resonated most?"</em> and <em>"What questions do you think leadership will have?"</em> Then probe for the Economic Buyer: <em>"Is there a version where you and I could spend 20 minutes with [CEO] specifically on the ROI story — separate from the full demo?"</em> Assign the champion an internal action (sharing recording + one-pager). Before hanging up, confirm a specific next step with a date and attendees on the calendar. Never leave a demo with only <em>"I'll be in touch."</em></div>
+      </div>
+      <div class="self-score show" id="ss22" style="display:none">
+        <div class="self-score-label">Self-score:</div>
+        <button class="score-btn" onclick="selfScore(22,'full')">Full credit — debrief q's, EB probe, committed next step</button>
+        <button class="score-btn" onclick="selfScore(22,'partial')">Partial — got 2 of 3 elements</button>
+        <button class="score-btn" onclick="selfScore(22,'none')">Missed it — review needed</button>
+      </div>
+    </div>
+
+    <div class="sa-card" id="q23">
+      <div class="q-number">Question 23 — Short Answer</div>
+      <div class="q-text" style="font-size:15px;margin-bottom:14px;">Deliver the <strong>"One AI Brain"</strong> platform pitch in 2–3 sentences. No jargon. Frame it as a prospect outcome, not a feature description.</div>
+      <div class="sa-label">Your Response</div>
+      <textarea class="sa-input" id="sa23" placeholder="Write your answer here — no jargon, prospect-outcome framing..."></textarea>
+      <button class="score-btn" onclick="revealModel(23)" style="margin-top:10px;background:var(--blue);border-color:var(--blue);color:#fff;padding:8px 18px;font-size:13px;">Reveal Model Answer</button>
+      <div class="model-answer" id="ma23">
+        <div class="model-answer-label">Model Answer</div>
+        <div class="model-answer-text">Today you have separate vendors for voice, chat, collections, lending, and digital banking — and none of them talk to each other. interface.ai is the single AI layer that sits across all of it, learns from every interaction across every channel, and automatically makes every product smarter over time. The more you invest in the platform, the more it compounds — train the AI on collections and it makes your contact center smarter too.</div>
+      </div>
+      <div class="self-score show" id="ss23" style="display:none">
+        <div class="self-score-label">Self-score:</div>
+        <button class="score-btn" onclick="selfScore(23,'full')">Full credit — no jargon, outcome-framed, compounding value clear</button>
+        <button class="score-btn" onclick="selfScore(23,'partial')">Partial — correct concept but jargon-heavy or feature-focused</button>
+        <button class="score-btn" onclick="selfScore(23,'none')">Missed it — review needed</button>
+      </div>
+    </div>
+
+    <div class="submit-section">
+      <button class="btn-submit" id="btn-submit" onclick="submitQuiz()" disabled>Submit & See Results →</button>
+      <div style="font-size:12px;color:var(--w40);margin-top:10px;" id="submit-hint">Answer all 20 multiple choice questions to enable submission</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SCREEN 3: RESULTS
+═════════════════════════════════════════ -->
+<div class="screen" id="screen-results">
+  <div class="results-wrap">
+    <div id="result-icon" class="result-icon">🎉</div>
+    <h1 class="result-title" id="result-title">Certification Passed</h1>
+    <p class="result-sub" id="result-sub">Outstanding performance. You're certified on Value Props & Objections.</p>
+
+    <div class="score-ring-wrap">
+      <div class="score-ring">
+        <svg width="160" height="160" viewBox="0 0 160 160">
+          <circle cx="80" cy="80" r="66" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="10"/>
+          <circle cx="80" cy="80" r="66" fill="none" stroke="#F5C128" stroke-width="10" stroke-linecap="round"
+                  stroke-dasharray="414.69" id="ring-circle" stroke-dashoffset="414.69" style="transition:stroke-dashoffset 1s ease;"/>
+        </svg>
+        <div class="score-ring-text">
+          <div class="score-pct" id="score-pct">0%</div>
+          <div class="score-label">Score</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="breakdown">
+      <div class="bd-card"><div class="bd-n" id="bd-correct" style="color:var(--correct)">0</div><div class="bd-l">Correct</div></div>
+      <div class="bd-card"><div class="bd-n" id="bd-wrong" style="color:var(--wrong)">0</div><div class="bd-l">Incorrect</div></div>
+    </div>
+
+    <div id="result-bar"></div>
+
+    <div id="certificate-wrap"></div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="retakeQuiz()">↺ Retake Test</button>
+      <button class="btn-primary" onclick="window.print()">🖨 Print Certificate</button>
+      <a href="interface_ai_value_props_training_video.html" style="text-decoration:none;">
+        <button class="btn-secondary">← Back to Training Video</button>
+      </a>
+    </div>
+
+    <div class="missed-section" id="missed-section"></div>
+  </div>
+</div>
+
+<script>
+// Answer key: correct answer for each MC question
+const answers = {
+  1:'B', 2:'C', 3:'B', 4:'B', 5:'B', 6:'B', 7:'B',
+  8:'B', 9:'B', 10:'B', 11:'B', 12:'B', 13:'B', 14:'B',
+  15:'B', 16:'B', 17:'B', 18:'B', 19:'C', 20:'C'
+};
+
+const explanations = {
+  1: "Metrics quantifies the outcomes the prospect needs to achieve — the numbers they track today (automation rate, handle time, collections recovery). Without Metrics, you can't build a business case.",
+  2: "At FIs, the Economic Buyer is almost always a C-suite executive. The VP of Contact Center is your Champion — but they rarely have final budget authority.",
+  3: "If you match only on their technical criteria, you compete on their terms. Shape the criteria early to include business outcomes where interface.ai wins.",
+  4: "A Champion who deflects EB involvement is a major red flag — they may lack the access or influence they claim. Economic Buyer engagement is a MEDDPICCC exit criterion for demo stage.",
+  5: "Surface first, then quantify — you can't quantify a pain you haven't surfaced. Personalise for the room so the pain feels real to each attendee, then create urgency.",
+  6: "Never let a discovery call end without surfacing the Decision Process. Ask directly — it's not presumptuous, it's professional.",
+  7: "Diplomatically push back every time. You need EB access to advance. A joint meeting for 20 minutes is a low-ask that separates real Champions from bottlenecks.",
+  8: "AI-native architecture achieves 60–80% containment. Legacy CCaaS platforms with AI bolted on typically cap at 20–25%. This architecture gap is the core competitive differentiator.",
+  9: "Surface the pain, then immediately connect it to business consequences. 'What happens if this isn't solved?' creates urgency and uncovers the real cost of inaction.",
+  10: "interface.ai targets 45–60%+ containment from Day 1, increasing as the AI learns. This is dramatically higher than legacy IVR baselines of 10–15%.",
+  11: "Web abandonment maps directly to Agentic Chat AI — AI Search + AI Transactions + AI Conversion on the website intercepts members at the point of abandonment.",
+  12: "95 bps is the Smart Collections benchmark. For a $1B CU, frame it as $9.5M in recoveries — always frame as revenue, not cost savings.",
+  13: "Proactive outbound before severe delinquency + promise-to-pay automation is the key differentiator. Standard IVRs are reactive; Smart Collections is preventive.",
+  14: "Crawl-Walk-Run reduces activation energy and de-risks the prospect's decision. It's not about delayed value — it's about quick wins that prove the model and build internal momentum.",
+  15: "Own the positioning proudly: designed to go deep in FIs, not broad. Then immediately make it real with a specific client in their world (same asset tier or same core).",
+  16: "Never lead with a takedown. Acknowledge strength, then reframe on architecture — they built for human-assist, we built for autonomous AI resolution. That's the gap.",
+  17: "Use the exact phrase: 'We have never deployed at a CU where headcount went down.' It's factual and disarming. Then invite the team lead in — address it together, don't defend against it.",
+  18: "Flip the timing objection: scoping now is the advantage, not the burden. The CUs winning the next 5 years are planning AI during their core transition, not after.",
+  19: "'The AI cannot freestyle a fraud refund' is the killer line. It instantly reframes hallucination risk from abstract fear to concrete impossibility — transactions are deterministic, not open-ended.",
+  20: "Corelation is a supported integration. Never express uncertainty about a supported platform — it destroys credibility. Confirm confidently and offer technical follow-up."
+};
+
+const qTexts = {
+  1:"What does the 'M' in MEDDPICCC stand for?",
+  2:"The Economic Buyer at a credit union is almost always:",
+  3:"Prospect evaluating on tech specs only — what should you do?",
+  4:"Red flag for the 'Champion' pillar in MEDDPICCC:",
+  5:"Pain Excavation Framework — correct order:",
+  6:"30 min in, haven't surfaced Decision Process — right move:",
+  7:"Champion deflects EB: 'I'll handle getting buy-in'",
+  8:"interface.ai containment vs legacy CCaaS platforms:",
+  9:"Hold times 2–3 min — best NEXT question:",
+  10:"Agentic Voice AI — target automation rate from Day 1:",
+  11:"60%+ loan app abandonment — primary entry point:",
+  12:"Smart Collections AI delinquency benchmark:",
+  13:"Smart Collections differentiated from standard IVR because:",
+  14:"Crawl-Walk-Run primary purpose:",
+  15:"Prospect: 'We haven't heard of you'",
+  16:"Prospect: 'We already use Glia'",
+  17:"VP Contact Center: 'Staff worried AI replaces jobs'",
+  18:"Prospect: 'Not ready — finishing core conversion'",
+  19:"PII/hallucination objection — most effective closing line:",
+  20:"IT Director: 'On Corelation Keystone, don't think you support it'"
+};
+
+let userAnswers = {};
+let selfScores = {};
+let aeName = '', aeDate = '';
+let answered = 0;
+const TOTAL_MC = 20;
+
+function startQuiz() {
+  aeName = document.getElementById('ae-name').value.trim() || 'AE Candidate';
+  aeDate = document.getElementById('ae-date').value || new Date().toISOString().split('T')[0];
+  showScreen('screen-quiz');
+  window.scrollTo(0,0);
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function answer(qNum, choice) {
+  if(userAnswers[qNum]) return; // already answered
+  userAnswers[qNum] = choice;
+  answered++;
+
+  const card = document.getElementById('q'+qNum);
+  const opts = card.querySelectorAll('.option');
+  const correct = answers[qNum];
+  const fb = document.getElementById('fb'+qNum);
+
+  opts.forEach(opt => {
+    opt.classList.add('locked');
+    const letter = opt.querySelector('.option-letter').textContent.trim();
+    if(letter === correct) opt.classList.add('correct');
+    else if(letter === choice && choice !== correct) opt.classList.add('wrong');
+  });
+
+  if(choice === correct) {
+    card.classList.add('answered-correct');
+    fb.className = 'q-feedback show correct-fb';
+    fb.innerHTML = '<strong>✓ Correct</strong> — ' + explanations[qNum];
+  } else {
+    card.classList.add('answered-wrong');
+    fb.className = 'q-feedback show wrong-fb';
+    fb.innerHTML = '<strong>✗ Incorrect</strong> — Correct answer: <strong>' + correct + '</strong>. ' + explanations[qNum];
+  }
+
+  // Update progress
+  const pct = (answered / TOTAL_MC) * 100;
+  document.getElementById('q-bar').style.width = pct + '%';
+  document.getElementById('q-progress-label').textContent = 'Question ' + Math.min(answered+1, TOTAL_MC) + ' of ' + TOTAL_MC;
+  const correctSoFar = Object.entries(userAnswers).filter(([k,v]) => answers[k] === v).length;
+  document.getElementById('q-score-live').textContent = 'Score: ' + correctSoFar + ' / ' + answered;
+
+  // Enable submit when all MC answered
+  if(answered === TOTAL_MC) {
+    document.getElementById('btn-submit').disabled = false;
+    document.getElementById('submit-hint').textContent = 'All questions answered — click Submit to see your results';
+  }
+}
+
+function revealModel(qNum) {
+  document.getElementById('ma'+qNum).classList.add('show');
+  document.getElementById('ss'+qNum).style.display = 'flex';
+}
+
+function selfScore(qNum, level) {
+  selfScores[qNum] = level;
+  const btns = document.getElementById('ss'+qNum).querySelectorAll('.score-btn');
+  btns.forEach(b => { b.classList.remove('selected-full','selected-partial','selected-none'); });
+  const idx = level === 'full' ? 0 : level === 'partial' ? 1 : 2;
+  btns[idx].classList.add('selected-' + level);
+}
+
+function submitQuiz() {
+  if(answered < TOTAL_MC) return;
+  const correct = Object.entries(userAnswers).filter(([k,v]) => answers[k] === v).length;
+  const wrong = TOTAL_MC - correct;
+  const pct = Math.round((correct / TOTAL_MC) * 100);
+  const passed = pct >= 80;
+
+  showScreen('screen-results');
+  window.scrollTo(0,0);
+
+  // Animate ring
+  setTimeout(() => {
+    const circumference = 414.69;
+    const offset = circumference - (pct / 100) * circumference;
+    const ring = document.getElementById('ring-circle');
+    ring.style.stroke = passed ? '#22C55E' : '#EF4444';
+    ring.style.strokeDashoffset = offset;
+    document.getElementById('score-pct').textContent = pct + '%';
+    document.getElementById('score-pct').style.color = passed ? '#22C55E' : '#EF4444';
+  }, 100);
+
+  document.getElementById('bd-correct').textContent = correct;
+  document.getElementById('bd-wrong').textContent = wrong;
+
+  if(passed) {
+    document.getElementById('result-icon').textContent = '🎉';
+    document.getElementById('result-title').textContent = 'Certification Passed';
+    document.getElementById('result-sub').textContent = 'You scored ' + pct + '% — above the 80% pass mark. You are certified on Value Props & Objection Handling.';
+    document.getElementById('result-bar').innerHTML = '<div class="pass-bar"><strong>✓ PASSED</strong> — ' + correct + '/20 correct (' + pct + '%). Minimum pass mark: 80% (16/20).</div>';
+
+    // Certificate
+    const dateStr = new Date(aeDate).toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+    document.getElementById('certificate-wrap').innerHTML = `
+      <div class="certificate">
+        <div class="cert-logo">interface.ai · Internal Certification</div>
+        <div class="cert-title-top">This certifies that</div>
+        <div class="cert-name">${aeName}</div>
+        <div class="cert-course">has successfully completed the<br><strong>Value Proposition & Objection Handling Certification</strong><br>AE Knowledge Test · MEDDPICCC Field Guide · May 2026</div>
+        <div class="cert-score-badge">Score: ${pct}% · ${correct}/20 Correct</div>
+        <div class="cert-date">Issued: ${dateStr} · interface.ai Sales Enablement</div>
+      </div>`;
+  } else {
+    document.getElementById('result-icon').textContent = '📋';
+    document.getElementById('result-title').textContent = 'Not Yet Certified';
+    document.getElementById('result-sub').textContent = 'You scored ' + pct + '% — below the 80% pass mark. Review the missed questions and re-attempt after 2 weeks.';
+    document.getElementById('result-bar').innerHTML = '<div class="fail-bar"><strong>✗ Not Passed</strong> — ' + correct + '/20 correct (' + pct + '%). Pass mark: 80% (16/20). Re-attempt available after 2 weeks.</div>';
+    document.getElementById('certificate-wrap').innerHTML = '';
+  }
+
+  // Missed questions review
+  const missed = Object.entries(userAnswers).filter(([k,v]) => answers[k] !== v);
+  if(missed.length > 0) {
+    let html = '<div class="missed-section"><div class="missed-title">Review: Questions to Study</div>';
+    missed.forEach(([k,v]) => {
+      const qn = parseInt(k);
+      html += `<div class="missed-item">
+        <div class="missed-q">Q${qn}: ${qTexts[qn]}</div>
+        <div class="missed-your">Your answer: ${v}</div>
+        <div class="missed-correct">✓ Correct answer: ${answers[qn]}</div>
+        <div class="missed-explain">${explanations[qn]}</div>
+      </div>`;
+    });
+    html += '</div>';
+    document.getElementById('missed-section').innerHTML = html;
+  }
+}
+
+function retakeQuiz() {
+  userAnswers = {}; selfScores = {}; answered = 0;
+  document.querySelectorAll('.q-card').forEach(c => {
+    c.className = 'q-card';
+    c.querySelectorAll('.option').forEach(o => o.className = 'option');
+    c.querySelectorAll('.q-feedback').forEach(f => { f.className = 'q-feedback'; f.innerHTML = ''; });
+  });
+  document.querySelectorAll('.model-answer').forEach(m => m.classList.remove('show'));
+  document.querySelectorAll('.self-score').forEach(s => s.style.display = 'none');
+  document.getElementById('q-bar').style.width = '5%';
+  document.getElementById('q-progress-label').textContent = 'Question 1 of 20';
+  document.getElementById('q-score-live').textContent = 'Score: 0 / 0';
+  document.getElementById('btn-submit').disabled = true;
+  document.getElementById('submit-hint').textContent = 'Answer all 20 multiple choice questions to enable submission';
+  showScreen('screen-quiz');
+  window.scrollTo(0,0);
+}
+
+// Set today's date
+document.getElementById('ae-date').value = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>
